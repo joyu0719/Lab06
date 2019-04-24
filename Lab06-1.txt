@@ -1,0 +1,29 @@
+#define MI  329
+#define RE 294
+#define DO  261
+#define FA  349
+#define WHOLE 1 //¥þ¤À²Å
+#define HALF 0.5 //¥b¤À²Å
+#define QUARTER 0.25
+
+int tune[] = {MI,RE,DO,RE,MI,MI,MI,RE,RE,RE,MI,MI,MI,MI,RE,DO,RE,MI,MI,MI,RE,RE,FA,RE,DO};
+
+float duration[] = {QUARTER,QUARTER,QUARTER, QUARTER, QUARTER, QUARTER,HALF, QUARTER, QUARTER,HALF, QUARTER, QUARTER,HALF, QUARTER,QUARTER,QUARTER, QUARTER, QUARTER, QUARTER,HALF, QUARTER, QUARTER, QUARTER, QUARTER,WHOLE };
+ int length = sizeof(tune) / sizeof(tune[0]);
+void setup() {
+  // put your setup code here, to run once:
+    pinMode(8, OUTPUT);
+   
+
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  
+  for (int x=0; x<length; x++) {
+      tone(8, tune[x]);
+      delay(1300 *duration[x]); 
+      noTone(8);
+       }
+   delay(5000);
+}
