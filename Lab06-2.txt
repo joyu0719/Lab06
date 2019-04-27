@@ -1,0 +1,53 @@
+#include <Keypad.h>
+#define MI  329
+#define RE 294
+#define DO  261
+#define FA  349
+#define SO  392
+#define LA  440
+#define SI  493
+#define DOH  523
+#define REH  587
+#define MIH  659
+#define FAH  698
+#define SOH  784
+#define LAH  880
+#define SIH  988
+#define DOHH 1047
+#define REHH  1175
+
+int tune[] = {DO,RE,MI,FA,SO,LA,SI,DOH,REH,MIH,FAH,SOH,LAH,SIH,DOHH,REHH};
+int n=0;
+const byte ROWS = 4; // 4 Rows
+const byte COLS = 4; // 4 Columns
+char keys[ROWS][COLS] = {
+{'7', '8', '9', 'C'}, {'4','5','6', 'D'},
+{'1', '2', '3', 'E'}, {'0', 'A', 'B', 'F'}
+};
+byte rowPins[ROWS] = {2, 3, 4, 5};
+byte colPins[COLS] = {9, 10, 11, 12};
+
+Keypad keypad =Keypad( makeKeymap(keys), rowPins,colPins, ROWS, COLS );
+void setup()
+{
+  Serial.begin(9600);
+}
+void loop()
+{
+  char key = keypad.getKey(); 
+  if (key != NO_KEY)
+  {
+      n = key - '0'; 
+      if(n>=0&&n<=9)
+        tone(8, tune[n],500);
+       else
+       {
+          if(key == 'A') tone(8, tune[10],500);
+          if(key == 'B') tone(8, tune[11],500);
+          if(key == 'C') tone(8, tune[12],500);
+          if(key == 'D') tone(8, tune[13],500);
+          if(key == 'E') tone(8, tune[14],500);
+          if(key == 'F') tone(8, tune[15],500);
+       }
+  }
+}
