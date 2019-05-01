@@ -1,0 +1,71 @@
+#include <Keypad.h>
+#include "SevSeg.h"
+SevSeg sevseg; //Instantiate a seven segment object
+const byte ROWS = 4; // 4 Rows
+const byte COLS = 4; // 4 Columns
+
+#define DO  261
+#define RE 294
+#define MI  329
+#define FA  349
+#define SO 392
+#define LA 440
+#define SI 493
+
+#define DOO  523
+#define REE 587
+#define MII  659
+#define FAA  698
+#define SOO 784
+#define LAA 880
+#define SII 988
+
+#define DDO  139
+#define RRE 147
+// 定義 Keypad 的按鍵
+char keys[ROWS][COLS] = {
+  {'7', '8', '9', 'C'}, {'4','5','6', 'D'},
+  {'1', '2', '3', 'E'}, {'0', 'A', 'B', 'F'}
+  };
+ 
+
+// 定義 Keypad 連到 Arduino 的接腳
+byte rowPins[ROWS] = {10, 9, 8, 7};
+// 連到 Keypad 的 4 個 Rows
+byte colPins[COLS] = {14, 13, 12, 11};
+// 連到 Keypad 的 4 個 Columns
+// 建立 Keypad 物件
+Keypad keypad =Keypad( makeKeymap(keys), rowPins,colPins, ROWS, COLS );
+void setup(){
+  byte numDigits = 1;
+byte digitPins[] = {5};
+byte segmentPins[] = {2,3,4,6,15,16,17};
+   sevseg.begin(COMMON_CATHODE, numDigits, digitPins,segmentPins);
+Serial.begin(9600);
+ pinMode(5, OUTPUT);
+}
+void loop(){
+char key = keypad.getKey(); // 讀取 Keypad的輸入
+if (key != NO_KEY){
+  switch(key)
+  {
+    case 'F':tone(5,DO,500);break;
+    case 'E':tone(5,RE,500);break;
+    case 'D':tone(5,MI,500);break;
+    case 'C':tone(5,FA,500);break;
+    case 'B':tone(5,SO,500);break;
+    case '3':tone(5,LA,500);break;
+    case '6':tone(5,SI,500);break;
+    case '9':tone(5,DOO,500);break;
+    case 'A':tone(5,REE,500);break;
+    case '2':tone(5,MII,500);break;
+    case '5':tone(5,FAA,500);break;
+    case '8':tone(5,SOO,500);break;
+    case '0':tone(5,LAA,500);break;
+    case '1':tone(5,SII,500);break;
+    case '4':tone(5,DDO,500);break;
+    case '7':tone(5,RRE,500);break;
+    }
+}
+sevseg.refreshDisplay();
+}
